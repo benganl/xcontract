@@ -1,9 +1,16 @@
 package za.co.wyzetech.cms.service;
 
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
 import za.co.wyzetech.cms.model.Contract;
 import za.co.wyzetech.cms.model.ContractStatus;
 
-public class ContractService {
+public class ContractService implements JavaDelegate {
+
+    @Override
+    public void execute(DelegateExecution context) throws Exception {
+
+    }
 
     public void createNewContract(Contract contract) {
         if (ContractStatus.NEW.equals(contract.getStatus())) {
