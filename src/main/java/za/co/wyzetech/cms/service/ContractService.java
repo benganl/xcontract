@@ -2,9 +2,11 @@ package za.co.wyzetech.cms.service;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.stereotype.Service;
 import za.co.wyzetech.cms.model.Contract;
 import za.co.wyzetech.cms.model.ContractStatus;
 
+@Service
 public class ContractService implements JavaDelegate {
 
     @Override

@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.listeners;
+package za.co.wyzetech.cms.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
