@@ -16,4 +16,12 @@ camunda:
       id: admin
       password: admin
 
+keycloak:
+  server:
+    contextPath: /auth
+    adminUser:
+      username: admin
+      password: admin
+    realmImportFile: baeldung-realm.json
+
 debug: true
