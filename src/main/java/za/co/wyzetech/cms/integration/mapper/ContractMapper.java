@@ -8,7 +8,7 @@ import za.co.wyzetech.cms.model.Contract;
 
 @Mapper(componentModel = "spring")
 public interface ContractMapper {
-    ContractMapper MAPPER = Mappers.getMapper(ContractMapper.class);
+    ContractMapper INSTANCE = Mappers.getMapper(ContractMapper.class);
 
     Contract convert(ContractDto dto);
 

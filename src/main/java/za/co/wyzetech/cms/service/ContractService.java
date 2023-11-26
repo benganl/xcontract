@@ -1,51 +1,31 @@
 package za.co.wyzetech.cms.service;
 
-import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Service;
 import za.co.wyzetech.cms.model.Contract;
-import za.co.wyzetech.cms.model.ContractStatus;
+import za.co.wyzetech.cms.repository.ContractRepository;
+import za.co.wyzetech.cms.validator.ContractValidator;
+import za.co.wyzetech.cms.workflow.Workflow;
 
-@Service
-public class ContractService implements JavaDelegate {
+import java.util.List;
 
-    @Override
-    public void execute(DelegateExecution context) throws Exception {
+@Service("contractService")
+public class ContractService {
 
+    private final Workflow workflow;
+    private final ContractValidator contractValidator;
+    private final ContractRepository contractRepository;
+
+    public ContractService(Workflow workflow, ContractValidator contractValidator, ContractRepository contractRepository) {
+        this.workflow = workflow;
+        this.contractValidator = contractValidator;
+        this.contractRepository = contractRepository;
     }
 
     public void createNewContract(Contract contract) {
-        if (ContractStatus.NEW.equals(contract.getStatus())) {
-            contract.setStatus(ContractStatus.NEGOTIATION);
-            System.out.println("Contract submitted for negotiation.");
-        } else {
-            System.out.println("Contract is not in draft status.");
-        }
+        workflow.createProcess(contract);
     }
 
-    public void updateContract(Contract contract, ContractStatus status) {
-        if (contract.getStatus() == ContractStatus.NEGOTIATION) {
-            System.out.println("Negotiating the validator...");
-        } else {
-            System.out.println("Cannot negotiate. Contract is not in negotiation status.");
-        }
-    }
-
-    public void finalizeNegotiation(Contract contract) {
-        if (contract.getStatus() == ContractStatus.NEGOTIATION) {
-            contract.setStatus(ContractStatus.REVIEW);
-            System.out.println("Negotiation finalized. Contract moved to review stage.");
-        } else {
-            System.out.println("Cannot finalize negotiation. Contract is not in negotiation status.");
-        }
-    }
-
-    public void approveContract(Contract contract) {
-        if (contract.getStatus() == ContractStatus.REVIEW) {
-            contract.setStatus(ContractStatus.APPROVED);
-            System.out.println("Contract approved.");
-        } else {
-            System.out.println("Cannot approve. Contract is not in review status.");
-        }
+    public List<String> validate(Contract contract) {
+        return contractValidator.validate(contract);
     }
 }

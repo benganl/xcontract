@@ -1,4 +1,7 @@
 spring:
+  banner:
+    location: banner.txt
+    charset: UTF-8
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
@@ -14,4 +17,3 @@ camunda:
       password: admin
 
 debug: true
-

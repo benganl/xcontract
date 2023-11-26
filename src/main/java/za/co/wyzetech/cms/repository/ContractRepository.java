@@ -11,7 +11,8 @@ public interface ContractRepository {
     List<Contract> getContracts(Date startDate, Date endDate);
     Contract getContractById(Long contractId);
 
-    void createContract(Contract contract);
     void updateContract(Contract contract);
     void deleteContract(Long contractId);
+
+    void save(Contract contract);
 }
