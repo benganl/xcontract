@@ -9,36 +9,34 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Ref: https://endoflife.date/spring-boot -->
-        <java.version>11</java.version>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.release>11</maven.compiler.release>
-        <spring.boot.version>2.7.17</spring.boot.version>
+        <java.version>17</java.version>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- <spring.boot.version>2.7.17</spring.boot.version> -->
+        <spring.boot.version>3.1.1</spring.boot.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
+        <springdoc.version>2.2.0</springdoc.version>
         <io.springfox.version>3.0.0</io.springfox.version>
-        <org.keycloak.version>23.0.0</org.keycloak.version>
+        <io.jsonwebtoken.version>0.12.3</io.jsonwebtoken.version>
 
         <!-- Ref: https://docs.camunda.org/manual/7.20/user-guide/spring-boot-integration/version-compatibility/ -->
-        <camunda.version>7.19.0</camunda.version>
+        <!-- <camunda.version>7.19.0</camunda.version> -->
+        <camunda.version>7.20.0</camunda.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.17</version>
+        <version>3.1.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${org.projectlombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -53,13 +51,6 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-            <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-dependencies-server-all</artifactId>
-                <version>${org.keycloak.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -68,6 +59,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -103,11 +95,16 @@
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
             <version>${camunda.version}</version>
         </dependency>
-        
+
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${io.springfox.version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-common</artifactId>
+            <version>${springdoc.version}</version>
         </dependency>
 
         <dependency>
@@ -118,29 +115,25 @@
 
         <!-- Auth & Security -->
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson2-provider</artifactId>
-            <version>6.2.6.Final</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-crypto-default</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${io.jsonwebtoken.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-admin-ui</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${io.jsonwebtoken.version}</version>
+            <scope>runtime</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-services</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-rest-admin-ui-ext</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${io.jsonwebtoken.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Tests and mocks -->
@@ -158,14 +151,13 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>za.co.wyzetech.cms.CMSApplication</mainClass>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -15,13 +15,7 @@ camunda:
     admin-user:
       id: admin
       password: admin
-
-keycloak:
-  server:
-    contextPath: /auth
-    adminUser:
-      username: admin
-      password: admin
-    realmImportFile: baeldung-realm.json
+    filter:
+      create: All Tasks
 
 debug: true

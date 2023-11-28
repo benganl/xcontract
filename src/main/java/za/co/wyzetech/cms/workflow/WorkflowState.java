@@ -11,4 +11,5 @@ public class WorkflowState {
     String payload;
     String businessKey;
     String processId;
+    // String event;
 }

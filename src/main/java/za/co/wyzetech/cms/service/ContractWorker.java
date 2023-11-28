@@ -28,10 +28,6 @@ public class ContractWorker {
         this.jsonUtil = jsonUtil;
     }
 
-    public void notify(Object command) {
-        WorkflowState state = workflow.getState(command);
-    }
-
     public void createNewContract(Contract contract) {
         workflow.createProcess(contract);
     }

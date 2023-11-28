@@ -7,7 +7,7 @@ import za.co.wyzetech.cms.model.Contract;
 import java.util.*;
 
 @Repository
-@Profile({"dev", "dev-test"})
+// @Profile({"dev", "dev-test"})
 public class InMemoryContractManager implements ContractRepository {
 
     private final List<Contract> contractDB = new ArrayList<>();
