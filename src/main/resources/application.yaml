@@ -2,14 +2,7 @@ spring:
   banner:
     location: banner.txt
     charset: UTF-8
-  datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
-  jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
-
+    
 camunda:
   bpm:
     admin-user:
@@ -17,5 +10,5 @@ camunda:
       password: admin
     filter:
       create: All Tasks
-
+      
 debug: true

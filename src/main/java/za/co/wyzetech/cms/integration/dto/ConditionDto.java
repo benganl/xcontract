@@ -1,12 +1,12 @@
-package za.co.wyzetech.cms.model;
-
-import lombok.Data;
+package za.co.wyzetech.cms.integration.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Data;
+
 @Data
-public class TermCondition implements Serializable {
+public class ConditionDto implements Serializable {
     private static final long serialVersionUID = -1L;
     private String name;
     private String description;

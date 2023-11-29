@@ -1,0 +1,44 @@
+spring:
+  banner:
+    location: banner.txt
+    charset: UTF-8
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wyzecmsdb
+    username: dev
+    password: dev
+    driverClassName: org.postgresql.Driver
+    hikari:
+      schema: wyzecms
+      
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    
+  flyway:
+    enabled: true
+    schemas:
+    - wyzecms
+    locations:
+    - classpath:db/migration
+    baseline-on-migrate: true
+
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      password: admin
+    filter:
+      create: All Tasks
+
+# swagger-ui custom path
+# custom path for swagger-ui
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+
+debug: true

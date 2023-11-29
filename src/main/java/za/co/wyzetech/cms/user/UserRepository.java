@@ -1,9 +1,8 @@
-package za.co.wyzetech.cms.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import za.co.wyzetech.cms.model.User;
+package za.co.wyzetech.cms.user;
 
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

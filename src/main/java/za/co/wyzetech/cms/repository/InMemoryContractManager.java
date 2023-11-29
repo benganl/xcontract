@@ -1,10 +1,12 @@
 package za.co.wyzetech.cms.repository;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
-import za.co.wyzetech.cms.model.Contract;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import java.util.*;
+import org.springframework.stereotype.Repository;
+
+import za.co.wyzetech.cms.model.Contract;
 
 @Repository
 // @Profile({"dev", "dev-test"})
@@ -14,25 +16,25 @@ public class InMemoryContractManager implements ContractRepository {
 
     @Override
     public void save(Contract contract) {
-        if(contractDB.contains(contract)) {
-            contractDB.remove(contract);
-        }
-        contractDB.add(contract);
+	if (contractDB.contains(contract)) {
+	    contractDB.remove(contract);
+	}
+	contractDB.add(contract);
     }
 
     @Override
     public List<Contract> getContractsByPartyId(Long partyId) {
-        return null;
+	return null;
     }
 
     @Override
     public List<Contract> getContracts(Date startDate, Date endDate) {
-        return null;
+	return null;
     }
 
     @Override
     public Contract getContractById(Long contractId) {
-        return null;
+	return null;
     }
 
     @Override

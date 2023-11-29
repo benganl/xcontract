@@ -1,17 +1,16 @@
 package za.co.wyzetech.cms.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumns;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,28 +21,30 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "party")
-public class Party implements Serializable {
+@Table(name = "conditions")
+public class Condition implements Serializable {
     private static final long serialVersionUID = -1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(name = "name")
     private String name;
-    
-    @Column(name = "external_ref")
-    private String externalRef;
-    
-    @Column(name = "identity_number")
-    private String identityNumber;
-    
-    @Column(name = "identity_type")
-    private String identityType;
-    
-    @Column(name = "address")
-    private String address;
-    
-    @ManyToMany(mappedBy = "parties")
-    private Set<Contract> contracts;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "value")
+    private String value;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "active")
+    private Boolean active;
 }
