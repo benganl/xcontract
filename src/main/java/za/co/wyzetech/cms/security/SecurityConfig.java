@@ -20,13 +20,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+class SecurityConfig {
     private final UserDetailsService userService;
-    private final AuthenticationFilter authenticationFilter;
 
-    public SecurityConfig(UserDetailsService userService, AuthenticationFilter authenticationFilter) {
+    public SecurityConfig(UserDetailsService userService) {
 	this.userService = userService;
-	this.authenticationFilter = authenticationFilter;
     }
 
     @Bean
@@ -34,20 +32,6 @@ public class SecurityConfig {
 	return new BCryptPasswordEncoder();
     }
 
-    /*
-     * @Bean public SecurityFilterChain securityFilterChain(HttpSecurity http)
-     * throws Exception { http.csrf(csrf -> { csrf.disable();
-     * }).sessionManagement(sessionManagement -> {
-     * sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-     * }).authorizeHttpRequests( requests -> requests.requestMatchers("/svc/**",
-     * "/ui/**", "/web/**").authenticated().anyRequest().permitAll())
-     * .logout((logout) ->
-     * logout.permitAll().logoutSuccessHandler(logoutSuccessHandler()))
-     * .userDetailsService(userService) .addFilterAfter(authenticationFilter,
-     * UsernamePasswordAuthenticationFilter.class);
-     * 
-     * return http.build(); }
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	http.csrf(csrf -> csrf.disable()).sessionManagement(sessionManagement -> {

@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.user;
+package za.co.wyzetech.cms.contract.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,20 +21,30 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
-public class Role implements Serializable {
+@Table(name = "conditions")
+public class Condition implements Serializable {
     private static final long serialVersionUID = -1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", insertable = true, unique = true)
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
+    @Column(name = "value")
+    private String value;
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_created")
-    private Date dateCreated;
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "active")
+    private Boolean active;
 }

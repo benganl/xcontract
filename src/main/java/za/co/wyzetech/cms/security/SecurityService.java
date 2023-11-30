@@ -7,25 +7,41 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
+import za.co.wyzetech.cms.exception.AuthException;
+import za.co.wyzetech.cms.user.UserService;
 
+@Slf4j
 @Service
 public class SecurityService {
+
+    private final AuthenticationManager authManager;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     private final String secret;
     private final long expiration;
     private final SecretKey key;
 
-    public SecurityService(@Value("${wyzecms.security.secret}") String secret,
+    public SecurityService(AuthenticationManager authManager, UserService userService, PasswordEncoder passwordEncoder,
+	    @Value("${wyzecms.security.secret}") String secret,
 	    @Value("${wyzecms.security.token.expiration:604800}") Long expiration) {
 	this.secret = secret;
 	this.expiration = expiration;
 	key = Keys.hmacShaKeyFor(secret.getBytes());
+	this.authManager = authManager;
+	this.userService = userService;
+	this.passwordEncoder = passwordEncoder;
     }
 
     public String generateToken(String username) {
@@ -62,5 +78,19 @@ public class SecurityService {
 	Date expiration = payload.getExpiration();
 
 	return expiration.before(new Date());
+    }
+
+    public Authentication authenticate(String username, String password) {
+	final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+	try {
+	    return authManager.authenticate(authToken);
+	} catch (Exception d) {
+	    log.warn("Authentication failed for user: {}. Problem: {}", username, d.getMessage());
+	    throw new AuthException("Authentication error!!!", d);
+	}
+    }
+
+    public void create(String username, String password) {
+	userService.createUser(username, passwordEncoder.encode(password));
     }
 }

@@ -2,27 +2,29 @@ package za.co.wyzetech.cms.integration.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
-import za.co.wyzetech.cms.model.Condition;
-import za.co.wyzetech.cms.model.Party;
-import za.co.wyzetech.cms.model.Status;
 
 @Data
 public class ContractDto implements Serializable {
     private static final long serialVersionUID = -1L;
-
     private Long id;
+    
+    private String reference;
 
-    private Set<Party> parties;
+    private Set<PartyDto> parties;
 
-    private Set<Condition> condition;
+    private Set<ConditionDto> condition;
 
-    private Set<Status> statusHistory;
+    private Set<StateDto> stateHistory;
 
-    private Status status;
+    private StateDto currentState;
 
     private Date startDate;
+
     private Date endDate;
+    
+    private List<String> validationErrors;
 }

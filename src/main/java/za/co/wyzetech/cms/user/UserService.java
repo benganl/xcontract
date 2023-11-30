@@ -1,5 +1,6 @@
 package za.co.wyzetech.cms.user;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,5 +31,15 @@ public class UserService implements UserDetailsService {
 
     private Set<GrantedAuthority> getAuthorities(Set<Role> roles) {
 	return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName())).collect(Collectors.toSet());
+    }
+
+    public void createUser(String username, String password) {
+	User newUser = new User();
+	newUser.setUsername(username);
+	newUser.setPassword(password);
+	newUser.setDateCreated(new Date());
+	newUser.setRoles(null);
+	userRepository.save(newUser);
+	
     }
 }

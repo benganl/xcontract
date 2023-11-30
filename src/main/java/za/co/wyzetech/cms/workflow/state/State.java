@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.user;
+package za.co.wyzetech.cms.workflow.state;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,8 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,20 +19,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
-public class Role implements Serializable {
+@Table(name = "cms_state")
+public class State implements Serializable {
     private static final long serialVersionUID = -1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", insertable = true, unique = true)
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_created")
-    private Date dateCreated;
+    @Column(name = "create_date")
+    private Date createDate;
+
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
 }

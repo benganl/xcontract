@@ -17,8 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import za.co.wyzetech.cms.user.UserService;
 
+/*
 @Slf4j
-@Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final UserService userService;
@@ -65,3 +65,4 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	chain.doFilter(request, response);
     }
 }
+*/
