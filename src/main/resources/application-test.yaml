@@ -22,12 +22,4 @@ spring:
     - classpath:db/migration
     baseline-on-migrate: true
 
-camunda:
-  bpm:
-    admin-user:
-      id: admin
-      password: admin
-    filter:
-      create: All Tasks
-
 debug: true

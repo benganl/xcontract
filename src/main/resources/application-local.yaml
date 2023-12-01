@@ -18,21 +18,14 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     
   flyway:
-    enabled: true
+    enabled: false
+    ignore-migration-patterns: "*:*"
     schemas:
     - wyzecms
     locations:
     - classpath:db/migration
     baseline-on-migrate: true
-
-camunda:
-  bpm:
-    admin-user:
-      id: admin
-      password: admin
-    filter:
-      create: All Tasks
-
+    
 # swagger-ui custom path
 # custom path for swagger-ui
 springdoc:

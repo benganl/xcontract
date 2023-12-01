@@ -2,6 +2,10 @@ package za.co.wyzetech.cms;
 
 import java.util.Arrays;
 
+import javax.sql.DataSource;
+
+import org.flywaydb.core.Flyway;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @EnableJpaRepositories
 @EnableWebMvc
 public class CMSApplication {
+    
+    @Autowired
+    private DataSource dataSource;
 
     public static void main(String[] args) {
 	SpringApplication.run(CMSApplication.class, args);
@@ -25,14 +32,10 @@ public class CMSApplication {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 	return args -> {
-
-	    log.info("What do we have here:");
-
-	    String[] beanNames = ctx.getBeanDefinitionNames();
-	    Arrays.sort(beanNames);
-	    for (String beanName : beanNames) {
-		log.info(beanName);
-	    }
+	    Flyway.configure().baselineOnMigrate(true).dataSource(dataSource).load().migrate();
+	    Arrays.asList(ctx.getBeanDefinitionNames()).forEach(b -> {
+		log.info(":::::::::: loaded bean: {}", b);
+	    });
 	};
     }
 }

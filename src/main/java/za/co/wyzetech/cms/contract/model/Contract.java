@@ -3,7 +3,6 @@ package za.co.wyzetech.cms.contract.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,7 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import za.co.wyzetech.cms.workflow.state.State;
 
 @Getter
 @Setter
@@ -35,7 +33,7 @@ public class Contract implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(name = "reference_id")
     private String reference;
 
@@ -53,15 +51,8 @@ public class Contract implements Serializable {
 	    inverseJoinColumns = { @JoinColumn(name = "condition_id", nullable = false) })
     private Set<Condition> condition;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-	    name = "state_history",
-	    joinColumns = { @JoinColumn(name = "contract_id", nullable = false) },
-	    inverseJoinColumns = { @JoinColumn(name = "state_id", nullable = false) })
-    private Set<State> stateHistory;
-
-    @JoinColumn(name = "current_state", referencedColumnName = "id")
-    private State currentState;
+    @Column(name = "state_ref", nullable = true)
+    private String stateRef;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_date")

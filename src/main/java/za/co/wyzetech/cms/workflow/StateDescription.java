@@ -6,6 +6,7 @@ public enum StateDescription {
     DRAFT("DRAFT"),
     NEGOTIATION("NEGOTIATION"),
     REVIEW("REVIEW"),
+    PROCESSING("PROCESSING"),
     APPROVED("APPROVED"),
     AOD("AOD"),
     SETTLED("SETTLED"),
@@ -21,7 +22,7 @@ public enum StateDescription {
 	this.value = value;
     }
     
-    public String getValue() {
+    public String value() {
 	return value;
     }
 }

@@ -1,68 +1,61 @@
 package za.co.wyzetech.cms.security;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import za.co.wyzetech.cms.common.JwtUtil;
 import za.co.wyzetech.cms.user.UserService;
 
-/*
 @Slf4j
+@Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
-    private final UserService userService;
-    private final SecurityService securityService;
+    private final String TOKEN_HEADER = "Authorization";
+    private final String TOKEN_PREFIX = "Bearer ";
 
-    public AuthenticationFilter(UserService userService, SecurityService securityService) {
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+
+    public AuthenticationFilter(UserService userService, JwtUtil jwtUtil) {
 	this.userService = userService;
-	this.securityService = securityService;
+	this.jwtUtil = jwtUtil;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 	    throws ServletException, IOException {
 
-	final String requestTokenHeader = request.getHeader("Authorization");
-
-	String username = null;
-	String token = null;
-
-	if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-	    token = requestTokenHeader.substring(7);
-	    try {
-		username = securityService.getUsernameFromToken(token);
-	    } catch (IllegalArgumentException e) {
-		log.info("Unable to get JWT Token");
-	    } catch (ExpiredJwtException e) {
-		log.info("JWT Token has expired");
-	    }
-	} else {
-	    logger.warn("JWT Token does not begin with Bearer String");
+	final String bearerToken = request.getHeader(TOKEN_HEADER);
+	if (Objects.isNull(bearerToken) || !bearerToken.startsWith(TOKEN_PREFIX)) {
+	    chain.doFilter(request, response);
+	    return;
 	}
 
-	if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-	    UserDetails userDetails = this.userService.loadUserByUsername(username);
-	    if (securityService.validateToken(token, userDetails)) {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-			userDetails, null, userDetails.getAuthorities());
+	String accessToken = bearerToken.substring(TOKEN_PREFIX.length());
 
-		usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-		SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-	    }
+	System.out.println("token : " + accessToken);
+	Claims claims = jwtUtil.resolveClaims(accessToken);
+
+	if (claims != null & jwtUtil.validateClaims(claims)) {
+	    String username = claims.getSubject();
+	    log.info("subject : {}", username);
+	    Authentication authentication = new UsernamePasswordAuthenticationToken(username, "", new ArrayList<>());
+	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
 	chain.doFilter(request, response);
     }
 }
-*/

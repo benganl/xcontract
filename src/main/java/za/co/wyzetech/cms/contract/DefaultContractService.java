@@ -7,18 +7,18 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import za.co.wyzetech.cms.contract.model.Contract;
-import za.co.wyzetech.cms.workflow.state.StateService;
+import za.co.wyzetech.cms.workflow.StateManager;
 
 @Slf4j
 @Service
 class DefaultContractService implements ContractService {
 
     private final ContractRepository contractRepository;
-    private final StateService stateService;
+    private final StateManager stateManager;
 
-    public DefaultContractService(ContractRepository contractRepository, StateService stateService) {
+    public DefaultContractService(ContractRepository contractRepository, StateManager stateManager) {
 	this.contractRepository = contractRepository;
-	this.stateService = stateService;
+	this.stateManager = stateManager;
     }
 
     public List<String> validate(Contract contract) {
@@ -29,7 +29,6 @@ class DefaultContractService implements ContractService {
     @Override
     public void create(Contract contract) {
 	var managed = contractRepository.save(contract);
-	String reference = managed.getReference();
-	// stateService.start(managed);
+	stateManager.start();
     }
 }

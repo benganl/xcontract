@@ -1,5 +1,8 @@
 package za.co.wyzetech.cms.workflow.event;
 
-public class DefaultEventService {
+import org.springframework.stereotype.Service;
+
+@Service
+class DefaultEventService implements EventService {
 
 }
