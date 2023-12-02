@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 interface StateItemRepository extends JpaRepository<StateItem, UUID> {
     StateItem getById(UUID id);
+
+    StateItem findByExternalRef(String externalRef);
 }

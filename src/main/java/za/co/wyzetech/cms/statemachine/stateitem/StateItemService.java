@@ -6,4 +6,8 @@ public interface StateItemService {
 
     StateItem stateItemById(UUID id);
 
+    StateItem create(StateItem stateItem);
+
+    StateItem stateItemByExternalRef(String externalRef);
+
 }

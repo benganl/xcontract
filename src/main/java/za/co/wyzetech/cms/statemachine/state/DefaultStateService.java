@@ -1,5 +1,8 @@
 package za.co.wyzetech.cms.statemachine.state;
 
+import org.springframework.stereotype.Service;
+
+@Service
 class DefaultStateService implements StateService {
 
     private final StateRepository stateRepository;

@@ -42,12 +42,14 @@ class StateManagerTest {
 
 	@BeforeEach
 	void setUp() {
+		// MockitoAnnotations.openMocks(this);
 		stateManager = new DefaultStateManager(stateService, stateItemService, stateConfigService, eventService);
 	}
 
 	@Test
 	void testCreateStateItem() {
 		when(stateService.statusByName("NEW")).thenReturn(state("NEW"));
+		when(stateItemService.create(any())).thenReturn(stateItem());
 		StateItem stateItem = stateManager.createNewStateItem("1");
 
 		Assertions.assertTrue(Objects.nonNull(stateItem));
@@ -72,7 +74,7 @@ class StateManagerTest {
 		StateItem stateItem = stateManager.findStateItemById(UUID.randomUUID());
 		Event event = eventService.eventByName("PROCESS");
 
-		State state = stateManager.nextState(stateItem, event);
+		State state = stateManager.process(stateItem, event);
 
 		Assertions.assertNotNull(state);
 		Assertions.assertEquals("1", stateItem.getExternalRef());

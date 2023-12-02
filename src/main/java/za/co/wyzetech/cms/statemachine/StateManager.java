@@ -11,5 +11,7 @@ public interface StateManager {
 
     StateItem findStateItemById(UUID randomUUID);
 
-    State nextState(StateItem stateItem, Event event);
+    State process(StateItem stateItem, Event event);
+
+    StateItem process(String externalRef, String action);
 }
