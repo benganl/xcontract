@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 interface StateRepository extends JpaRepository<State, UUID> {
 
-    State getByName(String value);
+    State findByName(String name);
 
 }

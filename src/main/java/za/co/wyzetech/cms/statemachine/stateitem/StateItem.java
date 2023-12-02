@@ -1,6 +1,7 @@
 package za.co.wyzetech.cms.statemachine.stateitem;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -36,4 +37,21 @@ public class StateItem implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "current_state")
     private State currentState;
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	StateItem other = (StateItem) obj;
+	return Objects.equals(id, other.id);
+    }
 }
