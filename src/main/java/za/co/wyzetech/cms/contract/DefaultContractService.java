@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import za.co.wyzetech.cms.contract.model.Contract;
-import za.co.wyzetech.cms.workflow.StateManager;
+import za.co.wyzetech.cms.statemachine.StateManager;
 
 @Slf4j
 @Service
@@ -29,6 +29,5 @@ class DefaultContractService implements ContractService {
     @Override
     public void create(Contract contract) {
 	var managed = contractRepository.save(contract);
-	stateManager.start();
     }
 }

@@ -17,11 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class JwtUtil {
+public class JwtUtils {
 
     private final SecretKey key;
 
-    public JwtUtil(@Value("${wyzecms.security.secret}") String secret,
+    public JwtUtils(@Value("${wyzecms.security.secret}") String secret,
 	    @Value("${wyzecms.security.token.expiration:604800}") Long expiration) {
 	key = Keys.hmacShaKeyFor(secret.getBytes());
     }

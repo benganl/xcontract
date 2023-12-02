@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import za.co.wyzetech.cms.common.JwtUtil;
+import za.co.wyzetech.cms.common.JwtUtils;
 import za.co.wyzetech.cms.exception.AuthException;
 import za.co.wyzetech.cms.security.SecurityService;
 import za.co.wyzetech.cms.user.UserService;
@@ -20,11 +20,11 @@ class DefaultSecurityService implements SecurityService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authManager;
-    private final JwtUtil jwtUtil;
+    private final JwtUtils jwtUtil;
     private final Long expiration;
 
     public DefaultSecurityService(UserService userService, PasswordEncoder passwordEncoder, AuthenticationManager authManager,
-	    JwtUtil jwtUtil, @Value("${wyzecms.security.token.expiration:604800}") Long expiration) {
+	    JwtUtils jwtUtil, @Value("${wyzecms.security.token.expiration:604800}") Long expiration) {
 	this.userService = userService;
 	this.passwordEncoder = passwordEncoder;
 	this.authManager = authManager;

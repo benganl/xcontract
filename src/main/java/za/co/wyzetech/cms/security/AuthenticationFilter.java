@@ -16,7 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import za.co.wyzetech.cms.common.JwtUtil;
+import za.co.wyzetech.cms.common.JwtUtils;
 import za.co.wyzetech.cms.user.UserService;
 
 @Slf4j
@@ -27,9 +27,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private final String TOKEN_PREFIX = "Bearer ";
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
+    private final JwtUtils jwtUtil;
 
-    public AuthenticationFilter(UserService userService, JwtUtil jwtUtil) {
+    public AuthenticationFilter(UserService userService, JwtUtils jwtUtil) {
 	this.userService = userService;
 	this.jwtUtil = jwtUtil;
     }

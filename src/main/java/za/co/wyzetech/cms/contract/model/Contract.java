@@ -3,6 +3,7 @@ package za.co.wyzetech.cms.contract.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,24 +32,22 @@ import lombok.Setter;
 public class Contract implements Serializable {
     private static final long serialVersionUID = -1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(name = "reference_id")
     private String reference;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-	    name = "contract_participants",
-	    joinColumns = { @JoinColumn(name = "contract_id", nullable = false) },
-	    inverseJoinColumns = { @JoinColumn(name = "party_id", nullable = false) })
+    @JoinTable(name = "contract_participants", joinColumns = {
+            @JoinColumn(name = "contract_id", nullable = false) }, inverseJoinColumns = {
+                    @JoinColumn(name = "party_id", nullable = false) })
     private Set<Party> parties;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-	    name = "contract_conditions",
-	    joinColumns = { @JoinColumn(name = "contract_id", nullable = false) },
-	    inverseJoinColumns = { @JoinColumn(name = "condition_id", nullable = false) })
+    @JoinTable(name = "contract_conditions", joinColumns = {
+            @JoinColumn(name = "contract_id", nullable = false) }, inverseJoinColumns = {
+                    @JoinColumn(name = "condition_id", nullable = false) })
     private Set<Condition> condition;
 
     @Column(name = "state_ref", nullable = true)

@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.workflow;
+package za.co.wyzetech.cms.statemachine;
 
 public enum StateDescription {
     NEW("NEW"),

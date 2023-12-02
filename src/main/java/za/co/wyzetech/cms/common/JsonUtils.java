@@ -6,10 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Component
-public class JsonUtil {
+public class JsonUtils {
     private final Gson gson; // todo Thread-safe?
 
-    JsonUtil() {
+    JsonUtils() {
 	gson = new GsonBuilder().setLenient().serializeNulls().create();
     }
 

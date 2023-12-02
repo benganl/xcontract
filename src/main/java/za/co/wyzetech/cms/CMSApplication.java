@@ -21,21 +21,21 @@ import lombok.extern.slf4j.Slf4j;
 @EnableJpaRepositories
 @EnableWebMvc
 public class CMSApplication {
-    
+
     @Autowired
     private DataSource dataSource;
 
     public static void main(String[] args) {
-	SpringApplication.run(CMSApplication.class, args);
+        SpringApplication.run(CMSApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-	return args -> {
-	    Flyway.configure().baselineOnMigrate(true).dataSource(dataSource).load().migrate();
-	    Arrays.asList(ctx.getBeanDefinitionNames()).forEach(b -> {
-		log.info(":::::::::: loaded bean: {}", b);
-	    });
-	};
+    CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+        return args -> {
+            Flyway.configure().baselineOnMigrate(true).dataSource(dataSource).load().migrate();
+            Arrays.asList(ctx.getBeanDefinitionNames()).forEach(b -> {
+                log.info(":::::::::: loaded bean: {}", b);
+            });
+        };
     }
 }

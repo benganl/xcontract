@@ -1,7 +1,9 @@
-package za.co.wyzetech.cms.workflow.transition;
+package za.co.wyzetech.cms.statemachine.event;
 
 import java.io.Serializable;
+import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,24 +13,23 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import za.co.wyzetech.cms.workflow.event.Event;
-import za.co.wyzetech.cms.workflow.state.State;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "cms_transition")
-public class Transition  implements Serializable {
+@Table(name = "cms_event")
+public class Event implements Serializable {
     private static final long serialVersionUID = -1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    private Event event;
-    
-    private State current;
-    
-    private State next;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
 }
