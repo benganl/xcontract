@@ -31,11 +31,11 @@ public class StateConfig implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "current_state_id")
-    private State current;
+    private State currentState;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "next_state_id")
-    private State next;
+    private State nextState;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "event_id")

@@ -1,6 +1,6 @@
-package za.co.wyzetech.cms.statemachine;
+package za.co.wyzetech.cms.statemachine.state;
 
-public enum StateDescription {
+public enum States {
     NEW("NEW"),
     COMPLETE("COMPLETE"),
     DRAFT("DRAFT"),
@@ -18,7 +18,7 @@ public enum StateDescription {
     
     private String value;
     
-    StateDescription(String value) {
+    States(String value) {
 	this.value = value;
     }
     
