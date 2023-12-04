@@ -4,30 +4,41 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import za.co.wyzetech.cms.statemachine.config.StateConfig;
-import za.co.wyzetech.cms.statemachine.config.StateConfigService;
+import lombok.extern.slf4j.Slf4j;
+import za.co.wyzetech.cms.statemachine.common.EventMapper;
 import za.co.wyzetech.cms.statemachine.event.Event;
 import za.co.wyzetech.cms.statemachine.event.EventService;
+import za.co.wyzetech.cms.statemachine.event.handler.StateMachineEvent;
+import za.co.wyzetech.cms.statemachine.event.handler.StateMachineEventBuilder;
+import za.co.wyzetech.cms.statemachine.event.handler.StateMachineEventHandler;
 import za.co.wyzetech.cms.statemachine.state.State;
 import za.co.wyzetech.cms.statemachine.state.StateService;
 import za.co.wyzetech.cms.statemachine.state.States;
 import za.co.wyzetech.cms.statemachine.stateitem.StateItem;
 import za.co.wyzetech.cms.statemachine.stateitem.StateItemService;
+import za.co.wyzetech.cms.statemachine.transition.Transition;
+import za.co.wyzetech.cms.statemachine.transition.TransitionService;
 
+@Slf4j
 @Component
-class DefaultStateManager implements StateManager {
+class DefaultStateMachine implements StateMachine {
 
     private final StateService stateService;
     private final StateItemService stateItemService;
-    private final StateConfigService stateConfigService;
+    private final TransitionService transitionService;
     private final EventService eventService;
+    private final StateMachineEventHandler handler;
+    private final EventMapper eventMapper;
 
-    public DefaultStateManager(StateService stateService, StateItemService stateItemService,
-	    StateConfigService stateConfigService, EventService eventService) {
+    public DefaultStateMachine(StateService stateService, StateItemService stateItemService,
+	    TransitionService transitionService, EventService eventService, StateMachineEventHandler handler,
+	    EventMapper eventMapper) {
 	this.stateService = stateService;
 	this.stateItemService = stateItemService;
-	this.stateConfigService = stateConfigService;
+	this.transitionService = transitionService;
 	this.eventService = eventService;
+	this.handler = handler;
+	this.eventMapper = eventMapper;
     }
 
     @Override
@@ -46,20 +57,19 @@ class DefaultStateManager implements StateManager {
     }
 
     @Override
-    public State process(StateItem stateItem, Event event) {
-	State currentState = stateItem.getCurrentState();
-	StateConfig stateConfig = stateConfigService.nextState(currentState, event);
-	return stateConfig.getNextState();
-    }
-
-    @Override
-    public StateItem process(String externalRef, String eventName) {
+    public void process(String externalRef, String eventName) {
+	log.info("Processing for: {}-{}", externalRef, eventName);
 	final StateItem stateItem = stateItemService.stateItemByExternalRef(externalRef);
 	final Event event = eventService.eventByName(eventName);
-	final StateConfig stateConfig = stateConfigService.nextState(stateItem.getCurrentState(), event);
-	
-	stateItem.setCurrentState(stateConfig.getNextState());
-	
-	return stateItem;
+
+	final Transition transition = transitionService.nextState(stateItem.getCurrentState(), event);
+
+	final StateMachineEvent evt = StateMachineEventBuilder
+		.init()
+		.transition(eventMapper.map(transition))
+		.stateItem(eventMapper.map(stateItem))
+		.build();
+
+	handler.process(evt);
     }
 }

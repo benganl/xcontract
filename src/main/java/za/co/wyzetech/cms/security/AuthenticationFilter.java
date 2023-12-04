@@ -46,7 +46,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
 	String accessToken = bearerToken.substring(TOKEN_PREFIX.length());
 
-	System.out.println("token : " + accessToken);
+	log.debug("token : " + accessToken);
 	Claims claims = jwtUtil.resolveClaims(accessToken);
 
 	if (claims != null & jwtUtil.validateClaims(claims)) {

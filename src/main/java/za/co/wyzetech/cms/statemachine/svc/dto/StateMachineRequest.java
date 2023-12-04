@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.statemachine.dto;
+package za.co.wyzetech.cms.statemachine.svc.dto;
 
 import java.io.Serializable;
 

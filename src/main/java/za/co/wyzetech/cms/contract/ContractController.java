@@ -41,7 +41,7 @@ public class ContractController {
 	    if (validationErrors.isEmpty()) {
 		contractService.create(contract);
 	    }
-	    contractDto.setValidationErrors(validationErrors);
+	    // contractDto.setValidationErrors(validationErrors);
 	    response.setContracts(new ArrayList<>());
 	    response.getContracts().add(contractDto);
 	}

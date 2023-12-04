@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import za.co.wyzetech.cms.contract.model.Contract;
-import za.co.wyzetech.cms.statemachine.StateManager;
+import za.co.wyzetech.cms.statemachine.StateMachine;
 
 @Slf4j
 @Service
 class DefaultContractService implements ContractService {
 
     private final ContractRepository contractRepository;
-    private final StateManager stateManager;
+    private final StateMachine stateManager;
 
-    public DefaultContractService(ContractRepository contractRepository, StateManager stateManager) {
+    public DefaultContractService(ContractRepository contractRepository, StateMachine stateManager) {
 	this.contractRepository = contractRepository;
 	this.stateManager = stateManager;
     }

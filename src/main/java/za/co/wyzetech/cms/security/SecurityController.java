@@ -1,5 +1,11 @@
 package za.co.wyzetech.cms.security;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.graalvm.polyglot.Context;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -54,6 +60,23 @@ public class SecurityController {
 	    return ResponseEntity.ok("success");
 	} catch (Exception e) {
 	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+    }
+
+    @GetMapping("/test")
+    public String executeJavaScript(String name) {
+	try (Context context = Context.create()) {
+	    // Load JavaScript file
+	    Path scriptPath = new ClassPathResource("js/test.js").getFile().toPath();
+	    String scriptContent = Files.readString(scriptPath);
+
+	    // Execute JavaScript code
+	    context.eval("js", scriptContent);
+
+	    // Call JavaScript function
+	    return context.eval("js", "test('" + name + "')").asString();
+	} catch (IOException e) {
+	    return "Error loading or executing JavaScript file: " + e.getMessage();
 	}
     }
 }

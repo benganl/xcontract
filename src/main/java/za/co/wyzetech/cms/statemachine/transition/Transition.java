@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.statemachine.config;
+package za.co.wyzetech.cms.statemachine.transition;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -23,7 +23,7 @@ import za.co.wyzetech.cms.statemachine.state.State;
 @AllArgsConstructor
 @Entity
 @Table(name = "cms_state_config")
-public class StateConfig implements Serializable {
+public class Transition implements Serializable {
     private static final long serialVersionUID = -1L;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

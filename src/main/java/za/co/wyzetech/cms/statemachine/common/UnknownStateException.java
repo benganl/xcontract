@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.statemachine.stateitem;
+package za.co.wyzetech.cms.statemachine.common;
 
 public class UnknownStateException extends RuntimeException {
 

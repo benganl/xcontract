@@ -1,4 +1,4 @@
-package za.co.wyzetech.cms.statemachine.dto;
+package za.co.wyzetech.cms.statemachine.svc.dto;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -6,7 +6,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class StateMachineResponse implements Serializable {
+public class ProcessStateItemResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
