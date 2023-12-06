@@ -13,7 +13,4 @@ public interface SecurityService {
     Boolean isTokenExpired(String token);
 
     Authentication authenticate(String username, String password);
-
-    void create(String username, String password);
-
 }
