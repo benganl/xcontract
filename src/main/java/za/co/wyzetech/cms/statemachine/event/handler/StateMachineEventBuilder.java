@@ -1,8 +1,5 @@
 package za.co.wyzetech.cms.statemachine.event.handler;
 
-import za.co.wyzetech.cms.statemachine.handler.StateItemDto;
-import za.co.wyzetech.cms.statemachine.handler.TransitionDto;
-
 public class StateMachineEventBuilder {
 
     protected TransitionDto transition;
