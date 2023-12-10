@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { ApplicationContext } from "../App";
+import { ApplicationContext } from "../services/ApplicationContext";
 
 const Home = () => {
-  const { state, setState } = useContext(ApplicationContext);
+  const { state, setState, updateState } = useContext(ApplicationContext);
 
   const handleUpdate = (e) => {
-    setState((prev) => ({ ...prev, name: "Lanton", data: "12345", loggedIn: true }));
+    setState((prev) => ({ ...prev, name: "LantonUpdate", data: "12345", loggedIn: true }));
   };
 
   return (

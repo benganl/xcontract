@@ -1,40 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./components/Home";
-import Layout from "./components/_Layout";
-import Dashboard from "./components/Dashboard";
-import Work from "./components/Work";
-import Help from "./components/Help";
 import About from "./components/About";
-import { createContext, useState } from "react";
+import Dashboard from "./components/Dashboard";
+import Help from "./components/Help";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Work from "./components/Work";
+import Page from "./web/Page";
 
-export interface StateObject {
-  loggedIn: boolean;
-  username: string;
-}
-
-export const ApplicationContext = createContext({});
-
-function App() {
-  const [state, setState] = useState({ name: "", data: {} });
-
+export default function App() {
   return (
-    <>
-      <ApplicationContext.Provider value={{ state, setState }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="work" element={<Work />} />
-              <Route path="help" element={<Help />} />
-              <Route path="about" element={<About />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ApplicationContext.Provider>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Page />}>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="work" element={<Work />} />
+          <Route path="help" element={<Help />} />
+          <Route path="about" element={<About />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

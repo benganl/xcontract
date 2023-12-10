@@ -9,11 +9,12 @@ spring:
     driverClassName: org.postgresql.Driver
     hikari:
       schema: wyzecms
-  mvc:
-    static-path-pattern: /ui/**
+  #mvc:static-path-pattern: classpath:/static/,classpath:/templates/
   web:
     resources:
-      static-locations: classpath:/web/
+      static-locations:
+      - classpath:/static/
+      - classpath:/templates/
       
   jpa:
     hibernate:

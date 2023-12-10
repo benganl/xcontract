@@ -26,11 +26,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
 
-    private final UserService userService;
     private final JwtUtils jwtUtil;
 
-    public AuthenticationFilter(UserService userService, JwtUtils jwtUtil) {
-	this.userService = userService;
+    public AuthenticationFilter(JwtUtils jwtUtil) {
 	this.jwtUtil = jwtUtil;
     }
 

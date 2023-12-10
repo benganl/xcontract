@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { ApplicationContext } from "../App";
+import { jwtDecode } from "jwt-decode";
 
 export interface AuthRequest {
   username: string;
@@ -7,12 +6,44 @@ export interface AuthRequest {
 }
 
 export interface AuthResponse {
-  username: string;
-  password: string;
+  token: string;
+  code: number;
+  message: string;
 }
 
-const SecurityService = () => {
-  const { state, setState } = useContext(ApplicationContext);
+export const handleLogin = async (loginDetails: AuthRequest) => {
+  const response = await fetch("http://localhost:8080/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(loginDetails),
+  });
+
+  if (!response.ok) {
+    throw Error("Authentication error");
+  }
+
+  const data: AuthResponse = await response.json();
+  console.log("Auth token from server: ", data.token);
+
+  console.log("data.code: ", data.code);
+  if (data.code == 200) {
+    localStorage.setItem("token", data.token);
+  }
 };
 
-export default SecurityService;
+export const isLoggedIn = (): boolean => {
+  const token = localStorage.getItem("token");
+  if (token === null || token === undefined || token.trim() === "") {
+    return false;
+  }
+
+  try {
+    const exp = jwtDecode(token)?.exp;
+    return exp !== undefined && exp !== null && exp * 1000 < Date.now();
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

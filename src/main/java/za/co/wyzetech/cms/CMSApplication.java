@@ -8,6 +8,7 @@ import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootApplication
+@EnableAutoConfiguration
 @EnableJpaRepositories
 @EnableWebMvc
 public class CMSApplication {
@@ -26,16 +28,16 @@ public class CMSApplication {
     private DataSource dataSource;
 
     public static void main(String[] args) {
-        SpringApplication.run(CMSApplication.class, args);
+	SpringApplication.run(CMSApplication.class, args);
     }
 
     @Bean
     CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-            Flyway.configure().baselineOnMigrate(true).dataSource(dataSource).load().migrate();
-            Arrays.asList(ctx.getBeanDefinitionNames()).forEach(b -> {
-                log.info(":::::::::: loaded bean: {}", b);
-            });
-        };
+	return args -> {
+	    Flyway.configure().baselineOnMigrate(true).dataSource(dataSource).load().migrate();
+	    Arrays.asList(ctx.getBeanDefinitionNames()).forEach(b -> {
+		log.info(":::::::::: loaded bean: {}", b);
+	    });
+	};
     }
 }
