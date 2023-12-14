@@ -11,7 +11,10 @@ export class StateMachineExecutionContext {
   }
 
   public process = async (): Promise<StateMachineResult> => {
-    this.stateMachine;
-    return await this.stateMachine.process(this.event);
+    try {
+      return this.stateMachine.process(this.event);
+    } catch (err) {
+      throw err;
+    }
   };
 }

@@ -12,22 +12,25 @@ export class StateMachineDatabase {
       user: user,
       password: password,
       database: database,
-      min: 5,
-      max: 10,
+      min: 10,
+      max: 50,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 20000,
+      connectionTimeoutMillis: 10000,
     });
   }
 
   public execute = async (sql: string | QueryConfig) => {
-    const client = await this.pool.connect();
     try {
-      const result = await client.query(sql);
-      return result;
+      const client = await this.pool.connect();
+      try {
+        return client.query(sql);
+      } catch (err) {
+        console.log("Error querying the database: ", err);
+      } finally {
+        client?.release();
+      }
     } catch (err) {
-      console.log("Error", err);
-    } finally {
-      client.release();
+      console.log("Boo boo: ", err);
     }
   };
 }

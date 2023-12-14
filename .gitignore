@@ -16,6 +16,9 @@ hs_err_pid*
 .settings/
 .metadata/
 
+
+node_modules/
+
 # Intellij
 .idea/
 *.iml

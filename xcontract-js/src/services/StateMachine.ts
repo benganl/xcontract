@@ -10,14 +10,24 @@ class StateMachine {
   }
 
   public process = async (event: StateMachineEvent) => {
-    return new Promise<StateMachineResult>((resolve, reject) => {
-      resolve({
+    const query = {
+      text: `SELECT * FROM wyzecms.application`,
+    };
+
+    try {
+      const result = await this.database.execute(query);
+      return {
         code: 200,
-        data: "process data response",
+        data: result?.rows,
         message: "done",
-      });
-      // reject({});
-    });
+      };
+    } catch (err) {
+      return {
+        code: 400,
+        message: "Error querying",
+        data: undefined,
+      };
+    }
   };
 
   public getApplication = async (applicationId: string) => {
@@ -25,10 +35,7 @@ class StateMachine {
       text: "select * from wyzecms.application where applicationId = $1",
       values: [applicationId],
     };
-
-    const application = await this.database.execute(query);
-
-    application?.rows;
+    return await this.database.execute(query);
   };
 }
 

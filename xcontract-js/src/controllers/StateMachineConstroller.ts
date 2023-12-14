@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StateMachineEvent } from "../Common";
-import { StateMachineConfig } from "../config/ApplicationConfig";
 import { ApplicationContext } from "../app/ApplicationContext";
 import { ApplicationContextBuilder } from "../app/ApplicationContextBuilder";
+import { StateMachineConfig } from "../config/ApplicationConfig";
 
 export class StateMachineController {
   private config: StateMachineConfig;
@@ -19,15 +19,18 @@ export class StateMachineController {
       params: { appId, itemRef },
     } = req;
 
-    console.log("ItemRef:::: %s, %s", appId, itemRef);
-
     const event: StateMachineEvent = {
       appId: appId,
       itemRef: itemRef,
-      action: "CREATE",
+      action: "QUERY",
     };
 
-    return this.ctx.create(event).process();
+    try {
+      const result = await this.ctx.create(event).process();
+      res.send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   };
 
   public process = async (req: Request, res: Response) => {

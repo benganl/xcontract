@@ -1,7 +1,6 @@
-import express, { Request, Response, Router } from "express";
-import { StateMachineController } from "../controllers/StateMachineConstroller";
+import express, { Router } from "express";
 import { StateMachineConfig } from "../config/ApplicationConfig";
-import { StateMachineEvent } from "../Common";
+import { StateMachineController } from "../controllers/StateMachineConstroller";
 
 const router: Router = express.Router();
 

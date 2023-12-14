@@ -10,6 +10,7 @@ export class ApplicationContext {
   }
 
   public create = (event: StateMachineEvent) => {
+    console.log("Create a new request context");
     return new StateMachineExecutionContext(this.stateMachine, event);
   };
 }
