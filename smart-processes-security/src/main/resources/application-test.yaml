@@ -1,0 +1,25 @@
+spring:
+  banner:
+    location: banner.txt
+    charset: UTF-8
+  datasource:
+    url: jdbc:h2:mem:wyzecmsdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+      # hikari: schema: wyzecms
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
+    baseline-on-migrate: true
+
+debug: true
