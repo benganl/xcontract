@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Process Flow</title>
+    <script src="https://cdn.jsdelivr.net/npm/fabric@2.6.4/dist/fabric.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script lang="js">
+    // Fabric.js initialization
+    const canvas = new fabric.Canvas('myCanvas');
+
+    // Process A rectangle
+    const processA = new fabric.Rect({
+      top: 50,
+      left: 50,
+      width: 150,
+      height: 100,
+      fill: '#cccccc',
+      stroke: '#000000',
+      strokeWidth: 2,
+    });
+    canvas.add(processA);
+
+    // Process B rectangle
+    const processB = new fabric.Rect({
+      top: 50,
+      left: 250,
+      width: 150,
+      height: 100,
+      fill: '#cccccc',
+      stroke: '#000000',
+      strokeWidth: 2,
+    });
+    canvas.add(processB);
+
+    // Connector line
+    const connector = new fabric.Line({
+      x1: processA.center().x,
+      y1: processA.center().y,
+      x2: processB.center().x,
+      y2: processB.center().y,
+      stroke: '#000000',
+      strokeWidth: 2,
+    });
+    canvas.add(connector);
+
+    // Update connector position on object movement
+    canvas.on('object:moved', () => {
+      connector.set({
+        x1: processA.center().x,
+        y1: processA.center().y,
+        x2: processB.center().x,
+        y2: processB.center().y,
+      });
+      canvas.renderAll();
+    });
+  </script>
+</html>
