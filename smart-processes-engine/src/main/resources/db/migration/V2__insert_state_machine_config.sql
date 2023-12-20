@@ -1,5 +1,5 @@
 
-
+/*
 ----
 
 INSERT INTO cms_event(id, description, name)VALUES ('f919f401-783f-4cc1-8397-ce4005ba59b0', 'START DESC', 'START');
@@ -53,3 +53,4 @@ INSERT INTO cms_state_config(id, current_state_id, next_state_id, event_id)
 	(SELECT ID FROM cms_state WHERE name = 'PROCESSING'),
 	(SELECT ID FROM cms_event WHERE name = 'COMPLETE')
 );
+*/

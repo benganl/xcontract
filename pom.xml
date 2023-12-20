@@ -1,226 +1,240 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>za.co.wyzetech</groupId>
-    <artifactId>smart-processes</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>za.co.wyzetech</groupId>
+	<artifactId>smart-processes</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Ref: https://endoflife.date/spring-boot -->
-        <java.version>21</java.version>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.release>21</maven.compiler.release>
-        <!-- <spring.boot.version>2.7.17</spring.boot.version> -->
-        <spring.boot.version>3.2.0</spring.boot.version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <org.projectlombok.version>1.18.30</org.projectlombok.version>
-        <springdoc.version>2.2.0</springdoc.version>
-        <io.springfox.version>3.0.0</io.springfox.version>
-        <io.jsonwebtoken.version>0.12.3</io.jsonwebtoken.version>
-        <org.graalvm.version>23.1.1</org.graalvm.version>
-        <org.graalvm.js.version>23.0.2</org.graalvm.js.version>
-        <lombok.version>1.18.30</lombok.version>
-        <gson.version>2.10.1</gson.version>
+		<java.version>21</java.version>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.release>21</maven.compiler.release>
 
-        <flyway.version>9.22.3</flyway.version>
+		<spring.boot.version>3.2.0</spring.boot.version>
 
-        <h2.version>2.2.224</h2.version>
-        <postgresql.version>42.6.0</postgresql.version>
+		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 
-        <spring-security.version>6.2.0</spring-security.version>
+		<org.projectlombok.version>1.18.30</org.projectlombok.version>
 
-        <jakarta-servlet-jsp-jstl.version>3.0.0</jakarta-servlet-jsp-jstl.version>
-        <glassfish-jstl.version>3.0.1</glassfish-jstl.version>
+		<springdoc.version>2.2.0</springdoc.version>
+		<io.springfox.version>3.0.0</io.springfox.version>
 
-        <mockito.version>5.7.0</mockito.version>
-    </properties>
+		<io.jsonwebtoken.version>0.12.3</io.jsonwebtoken.version>
 
-    <modules>
-        <module>smart-processes-security</module>
-        <module>smart-processes-engine</module>
-        <module>smart-processes-ui</module>
-    </modules>
+		<org.graalvm.version>23.1.1</org.graalvm.version>
+		<org.graalvm.js.version>23.0.2</org.graalvm.js.version>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
+		<gson.version>2.10.1</gson.version>
 
-            <!-- Graal VM -->
-            <dependency>
-                <groupId>org.graalvm.sdk</groupId>
-                <artifactId>graal-sdk</artifactId>
-                <version>${org.graalvm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.graalvm.python</groupId>
-                <artifactId>python-language</artifactId>
-                <version>${org.graalvm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.graalvm.js</groupId>
-                <artifactId>js</artifactId>
-                <version>${org.graalvm.js.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.graalvm.js</groupId>
-                <artifactId>js-scriptengine</artifactId>
-                <version>${org.graalvm.js.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.graalvm.truffle</groupId>
-                <artifactId>truffle-runtime</artifactId>
-                <version>${org.graalvm.version}</version>
-                <scope>runtime</scope>
-            </dependency>
+		<flyway.version>9.22.3</flyway.version>
 
+		<h2.version>2.2.224</h2.version>
+		<postgresql.version>42.6.0</postgresql.version>
 
-            <!-- Utilities -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${org.mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>${gson.version}</version>
-            </dependency>
+		<spring-security.version>6.2.0</spring-security.version>
+
+		<jakarta-servlet-jsp-jstl.version>3.0.0</jakarta-servlet-jsp-jstl.version>
+		<glassfish-jstl.version>3.0.1</glassfish-jstl.version>
+
+		<mockito.version>5.7.0</mockito.version>
+	</properties>
+
+	<modules>
+		<module>smart-processes-security</module>
+		<module>smart-processes-engine</module>
+		<module>smart-processes-ui</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+
+			<!-- Graal VM -->
+			<dependency>
+				<groupId>org.graalvm.sdk</groupId>
+				<artifactId>graal-sdk</artifactId>
+				<version>${org.graalvm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.graalvm.js</groupId>
+				<artifactId>js</artifactId>
+				<version>${org.graalvm.js.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.graalvm.js</groupId>
+				<artifactId>js-language</artifactId>
+				<version>${org.graalvm.js.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.graalvm.js</groupId>
+				<artifactId>js-scriptengine</artifactId>
+				<version>${org.graalvm.js.version}</version>
+			</dependency>
+
+			<!-- Utilities -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${org.projectlombok.version}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${org.mapstruct.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
+			</dependency>
 
 
-            <!-- Dev APIs and Impls -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-validation</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jpa</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.servlet.jsp.jstl</groupId>
-                <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-                <version>${jakarta-servlet-jsp-jstl.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-                <version>${glassfish-jstl.version}</version>
-            </dependency>
+			<!-- Dev APIs and Impls -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-validation</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.servlet.jsp.jstl</groupId>
+				<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+				<version>${jakarta-servlet-jsp-jstl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+				<version>${glassfish-jstl.version}</version>
+			</dependency>
 
-            <!-- Monitoring & -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-actuator</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
+			<!-- Monitoring & -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
 
-            <!-- Restful Services Utils -->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-common</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
+			<!-- Restful Services Utils -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-common</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
 
-            <!-- Persistence -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>${flyway.version}</version>
-            </dependency>
+			<!-- Persistence -->
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgresql.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway.version}</version>
+			</dependency>
 
-            <!-- Auth & Security -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-security</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
-                <version>${io.jsonwebtoken.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-impl</artifactId>
-                <version>${io.jsonwebtoken.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>${io.jsonwebtoken.version}</version>
-                <scope>runtime</scope>
-            </dependency>
+			<!-- Auth & Security -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>${io.jsonwebtoken.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>${io.jsonwebtoken.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId>
+				<version>${io.jsonwebtoken.version}</version>
+				<scope>runtime</scope>
+			</dependency>
 
-            <!-- Tests and mocks -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring.boot.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
+			<!-- Tests and mocks -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring.boot.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
 
-            <!-- Dev Exp / Utilities -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${spring.boot.version}</version>
-                <scope>runtime</scope>
-                <optional>true</optional>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+			<!-- Dev Exp / Utilities -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-devtools</artifactId>
+				<version>${spring.boot.version}</version>
+				<scope>runtime</scope>
+				<optional>true</optional>
+			</dependency>
+			
+			<!-- Build & Deployment -->
+			<dependency>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.12.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.2.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

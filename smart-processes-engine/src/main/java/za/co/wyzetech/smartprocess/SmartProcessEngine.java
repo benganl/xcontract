@@ -1,13 +1,16 @@
 package za.co.wyzetech.smartprocess;
 
-import za.co.wyzetech.smartprocess.process.SmartProcess;
-
 import java.util.UUID;
 
-public interface SmartProcessEngine {
-    SmartProcess createNewStateItem(String externalRef);
+import reactor.core.publisher.Mono;
+import za.co.wyzetech.smartprocess.process.SmartProcess;
 
-    SmartProcess findStateItemById(UUID randomUUID);
+public interface SmartProcessEngine {
+    Mono<SmartProcess> createNewSmartProcess(String externalRef);
+
+    Mono<SmartProcess> findSmartProcessById(UUID randomUUID);
+
+    Mono<SmartProcess> findSmartProcessByExternalRef(String externalRef);
 
     void process(String externalRef, String action);
 }

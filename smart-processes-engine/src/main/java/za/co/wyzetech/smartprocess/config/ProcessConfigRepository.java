@@ -1,11 +1,12 @@
 package za.co.wyzetech.smartprocess.config;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.UUID;
+
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+
 import za.co.wyzetech.smartprocess.event.ProcessEvent;
 import za.co.wyzetech.smartprocess.state.ProcessState;
 
-import java.util.UUID;
-
-interface ProcessConfigRepository extends JpaRepository<ProcessConfig, UUID> {
-    ProcessConfig findByCurrentStateAndEvent(ProcessState currentState, ProcessEvent processEvent);
+interface ProcessConfigRepository extends ReactiveCrudRepository<ProcessConfig, UUID> {
+    ProcessConfig findByCurrentStateAndProcessEvent(ProcessState currentState, ProcessEvent processEvent);
 }

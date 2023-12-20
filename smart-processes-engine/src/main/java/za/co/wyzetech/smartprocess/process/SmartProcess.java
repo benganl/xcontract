@@ -1,22 +1,29 @@
 package za.co.wyzetech.smartprocess.process;
 
-import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import za.co.wyzetech.smartprocess.state.ProcessState;
 
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "cms_state_item")
+// @Entity
+@Table(name = "smart_process")
 public class SmartProcess implements Serializable {
     private static final long serialVersionUID = -1L;
 
@@ -24,7 +31,7 @@ public class SmartProcess implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "external_ref")
+    @Column("external_ref")
     private String externalRef;
 
     @ManyToOne(optional = false)
@@ -33,18 +40,18 @@ public class SmartProcess implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+	return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        SmartProcess other = (SmartProcess) obj;
-        return Objects.equals(id, other.id);
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	SmartProcess other = (SmartProcess) obj;
+	return Objects.equals(id, other.id);
     }
 }

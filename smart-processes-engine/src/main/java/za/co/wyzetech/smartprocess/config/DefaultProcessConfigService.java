@@ -1,6 +1,7 @@
 package za.co.wyzetech.smartprocess.config;
 
 import org.springframework.stereotype.Service;
+
 import za.co.wyzetech.smartprocess.event.ProcessEvent;
 import za.co.wyzetech.smartprocess.state.ProcessState;
 
@@ -14,7 +15,7 @@ class DefaultProcessConfigService implements ProcessConfigService {
 
     @Override
     public ProcessConfig nextState(ProcessState currentState, ProcessEvent processEvent) {
-        ProcessConfig processConfig = processConfigRepository.findByCurrentStateAndEvent(currentState, processEvent);
+        ProcessConfig processConfig = processConfigRepository.findByCurrentStateAndProcessEvent(currentState, processEvent);
         return processConfig;
     }
 }
